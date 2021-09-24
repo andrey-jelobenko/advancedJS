@@ -2,7 +2,8 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 // do not use fetch!! Only Promise!
-let getRequest = (url, cb) => {
+let getRequest = (url) => {
+return new Promise((resolve) => {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onreadystatechange = () => {
@@ -10,11 +11,12 @@ let getRequest = (url, cb) => {
       if (xhr.status !== 200) {
         console.log('Error!');
       } else {
-        cb(xhr.responseText);
+        resolve(xhr.responseText);
       }
     }
   }
   xhr.send();
+});
 }
 
 class ProductItem {
@@ -44,21 +46,22 @@ class ProductList {
         this._goods = [];
         this._allProducts = [];
 
-        // this._fetchGoods();
-        // this._render();
-        this._getProducts().then((data) => {
-            this._goods = data;
-            this._render();
-        });
+        this._fetchGoods();
+        this._render();
+        // this._getProducts().then((data) => {
+        //     this._goods = data;
+        //     this._render();
+        // });
     }
 
-    // _fetchGoods() {
-    //   getRequest(`${API}/catalogData.json`, (data) => {
-    //     this._goods = JSON.parse(data);
-    //     this._render();
-    //     // console.log(this._goods);
-    //   });
-    // }
+    _fetchGoods() {
+      getRequest(`${API}/catalogData.json`)
+      .then((data) => {
+        this._goods = JSON.parse(data);
+        this._render();
+        // console.log(this._goods);
+      });
+    }
 
     sum() {
         // return this._goods.reduce((sum, { price }) => sum + price, 0);
@@ -67,13 +70,13 @@ class ProductList {
         }, 0);
     }
 
-    _getProducts() {
-      return fetch(`${API}/catalogData.json`)
-          .then(response => response.json())
-          .catch((error) => {
-            console.log(error)
-          });
-    }
+    // _getProducts() {
+    //   return fetch(`${API}/catalogData.json`)
+    //       .then(response => response.json())
+    //       .catch((error) => {
+    //         console.log(error)
+    //       });
+    // }
 
     _render() {
         // const block = document.querySelector(this.container);
