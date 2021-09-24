@@ -2,8 +2,7 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 // do not use fetch!! Only Promise!
-let getRequest = (url) => {
-return new Promise((resolve) => {
+let getRequest = (url, cb) => {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onreadystatechange = () => {
@@ -11,19 +10,18 @@ return new Promise((resolve) => {
       if (xhr.status !== 200) {
         console.log('Error!');
       } else {
-        resolve(xhr.responseText);
+        cb(xhr.responseText);
       }
     }
   }
   xhr.send();
-});
 }
 
 class ProductItem {
     constructor(product, img='https://via.placeholder.com/200x150') { // img = './img/img.jpg'
-        this.title = product.product_name;
+        this.title = product.title;
         this.price = product.price;
-        this.id = product.id_product;
+        this.id = product.id;
         this.img = img;
     }
 
@@ -46,22 +44,21 @@ class ProductList {
         this._goods = [];
         this._allProducts = [];
 
-        this._fetchGoods();
-        this._render();
-        // this._getProducts().then((data) => {
-        //     this._goods = data;
-        //     this._render();
-        // });
+        // this._fetchGoods();
+        // this._render();
+        this._getProducts().then((data) => {
+            this._goods = data;
+            this._render();
+        });
     }
 
-    _fetchGoods() {
-      getRequest(`${API}/catalogData.json`)
-      .then((data) => {
-        this._goods = JSON.parse(data);
-        this._render();
-        // console.log(this._goods);
-      });
-    }
+    // _fetchGoods() {
+    //   getRequest(`${API}/catalogData.json`, (data) => {
+    //     this._goods = JSON.parse(data);
+    //     this._render();
+    //     // console.log(this._goods);
+    //   });
+    // }
 
     sum() {
         // return this._goods.reduce((sum, { price }) => sum + price, 0);
@@ -70,13 +67,13 @@ class ProductList {
         }, 0);
     }
 
-    // _getProducts() {
-    //   return fetch(`${API}/catalogData.json`)
-    //       .then(response => response.json())
-    //       .catch((error) => {
-    //         console.log(error)
-    //       });
-    // }
+    _getProducts() {
+      return fetch(`${API}/catalogData.json`)
+          .then(response => response.json())
+          .catch((error) => {
+            console.log(error)
+          });
+    }
 
     _render() {
         // const block = document.querySelector(this.container);
