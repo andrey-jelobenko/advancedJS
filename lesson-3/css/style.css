@@ -1,0 +1,130 @@
+body{
+    font-family: 'SF Pro Display', sans-serif;
+}
+header{
+    display: flex;
+    background-color: #2f2a2d;
+    justify-content: space-between;
+    color: #fafafa;
+    padding: 30px 80px;
+    position: relative;
+}
+button{
+    outline: none;
+}
+.logo{
+
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.basket {
+    position: absolute;
+    top: 70px;
+    right: 80px;
+    border: 1px solid black;
+    min-width: 350px;
+    color: black;
+    background-color: rgb(230, 227, 196);
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+}
+.basket p {
+    text-align: center;
+}
+.show-basket {
+    display: block;
+}
+.btn-cart{
+    background-color: #fafafa;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    color: #2f2a2d;
+    border-radius: 5px;
+    transition: all ease-in-out .4s;
+    cursor: pointer;
+}
+.btn-cart:hover{
+    background-color: transparent;
+    border-color: #fafafa;
+    color: #fafafa;
+}
+.btn-cart, .logo{
+    align-self: center;
+}
+.products{
+    column-gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-rows: 1fr;
+    padding: 40px 80px;
+    justify-content: space-between;
+}
+p {
+    margin: 0 0 5px 0;
+}
+.product-item{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+img {
+    max-width: 100%;
+    height: auto
+}
+.desc {
+    border: 1px solid #c0c0c040;
+    padding: 15px
+}
+.buy-btn, .del-btn{
+    margin-top: 5px;
+    background-color: #2f2a2d;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    color: #fafafa;
+    border-radius: 5px;
+    transition: all ease-in-out .4s;
+    cursor: pointer;
+}
+.buy-btn:hover, .del-btn:hover{
+    background-color: #fafafa;
+    color: #2f2a2d;
+    border: 1px solid #2f2a2d;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+}
+.cart-item:not(:last-child){
+    margin-bottom: 20px;
+}
+.product-bio{
+    display: flex;
+}
+.product-bio img{
+    border-radius: 5px;
+}
+.cart-item img{
+    align-self: flex-start;
+    margin-right: 15px;
+}
+.product-desc{
+    max-width: 150px;
+}
+.product-quantity {
+    margin-top: 15px;
+    font-size: 0.75em;
+}
+.product-single-price{
+    color: #474747;
+    font-size: 0.5em;
+}
+.right-block{
+    text-align: right;
+}
+.product-price{
+    margin-left: 30px;
+}
